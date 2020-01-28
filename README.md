@@ -10,7 +10,7 @@ The web service has methods:
 
 * /pubkey - to allow anyone to get the public key for verifying tokens.
 * /login - allows a user to login directly.
-* /login-as - allows a service with scope user_login_as to create a user.
+* /login-as - allows a service with scope user_login_as to login as a user.
 * /signup - allows a user to sign up directly (unless -allowUserSignup=false), or a service to sign up a user.
 * /create-key - allows a service to create other service tokens.
 * /validate - to validate a token.
@@ -19,6 +19,8 @@ The web service has methods:
 * /get-user-scopes - allows a service to get scope information for a user, but only scopes the service is allowed to see.
 * /add-user-scopes - allows a service to add scopes for a user, but only scopes the service is allowed to manage.
 * /remove-user-scopes - *not implemented yet*
+
+Service tokens can be created with a master key, by using a master key (-createMaster switch below) or another service token. A non-master service token can only grant scopes to the new service token that it itself has, or is derived from one of its canon scopes. A canon scope is in a separate set of service scopes that are not the current active scopes, but allows the service to grant other services those scopes or scopes derived via *scope*_\*, and allows adding those scopes to a user's scopes.
 
 Service usage below.
 
