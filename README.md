@@ -4,7 +4,7 @@ Authentication and rights service and API in Go (golang)
 Auth-service allows this one centralized service to manage authentication and rights management
 across various services without having to share a secret.
 
-A private key is used to cryptographically secure access tokens for other serivices to confirm against the public key.
+A private key is used to cryptographically secure access tokens for other services to confirm validity against the public key.
 
 The web service has methods:
 
@@ -21,6 +21,20 @@ The web service has methods:
 * /remove-user-scopes - *not implemented yet*
 
 Service tokens can be created with a master key, by using a master key (-createMaster switch below) or another service token. A non-master service token can only grant scopes to the new service token that it itself has, or is derived from one of its canon scopes. A canon scope is in a separate set of service scopes that are not the current active scopes, but allows the service to grant other services those scopes or scopes derived via *scope*_\*, and allows adding those scopes to a user's scopes.
+
+Services can use the API ([godoc](https://godoc.org/github.com/millerlogic/auth-service/api)) to simplify working with the auth service, this API definition is under the MIT license. Quick example:
+
+```go
+a := &auth.Auth{URL: "http://auth-service:8080", AuthToken: "YourServiceToken"}
+tok, err := a.GetToken(context.Background(), userTokenString)
+if err != nil {
+  panic(err)
+}
+scopes := auth.GetTokenScopes(tok)
+if scopes.IsUser() && scopes.Has("myservice_feature") {
+  // ...
+}
+```
 
 Service usage below.
 
