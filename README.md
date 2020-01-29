@@ -18,7 +18,7 @@ The web service has methods:
 * /get-user - allows a user to get information on their own user account.
 * /get-user-scopes - allows a service to get scope information for a user, but only scopes the service is allowed to see.
 * /add-user-scopes - allows a service to add scopes for a user, but only scopes the service is allowed to manage.
-* /remove-user-scopes - *not implemented yet*
+* /remove-user-scopes - [#2](https://github.com/millerlogic/auth-service/issues/2)
 
 Service tokens can be created with a master key, by using a master key (-createMaster switch below) or another service token. A non-master service token can only grant scopes to the new service token that it itself has, or is derived from one of its canon scopes. A canon scope is in a separate set of service scopes that are not the current active scopes, but allows the service to grant other services those scopes or scopes derived via *scope*_\*, and allows adding those scopes to a user's scopes.
 
